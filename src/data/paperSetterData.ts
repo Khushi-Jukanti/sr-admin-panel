@@ -1,4 +1,19 @@
-export const paperSetterData = [
+export interface PaperSetterAssignment {
+  id: string;
+  testId: string;
+  date: string;
+  campus: string;
+  subject: string;
+  teacherName: string;
+  teacherEmail: string;
+  contact: string;
+  submissionStatus: 'submitted' | 'pending' | 'overdue';
+  assignedDate: string;
+  dueDate: string;
+  notes?: string;
+}
+
+export const paperSetterData: PaperSetterAssignment[] = [
   {
     id: '1',
     testId: 'WT001',

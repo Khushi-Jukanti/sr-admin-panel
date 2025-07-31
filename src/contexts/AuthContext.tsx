@@ -1,7 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { defaultCredentials } from '../data/sampleUsers.js';
+import { User, defaultCredentials } from '@/data/sampleUsers';
 
-const AuthContext = createContext(undefined);
+interface AuthContextType {
+  user: User | null;
+  login: (role: string, username: string, password: string) => boolean;
+  logout: () => void;
+  isAuthenticated: boolean;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -11,8 +18,8 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     // Check if user is already logged in
@@ -22,15 +29,15 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (role, username, password) => {
-    const credentials = defaultCredentials[role];
+  const login = (role: string, username: string, password: string): boolean => {
+    const credentials = defaultCredentials[role as keyof typeof defaultCredentials];
     
     if (credentials && username === credentials.username && password === credentials.password) {
-      const mockUser = {
+      const mockUser: User = {
         id: '1',
         name: role === 'superadmin' ? 'Super Admin' : 
               role.charAt(0).toUpperCase() + role.slice(1),
-        role: role,
+        role: role as User['role'],
         email: `${username}@srinstitutes.edu.in`,
         school: 'SR Engineering College',
         campus: 'Main Campus',
