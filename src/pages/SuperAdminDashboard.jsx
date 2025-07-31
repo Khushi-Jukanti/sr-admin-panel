@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { 
   Users, 
   Calendar, 
@@ -9,8 +9,8 @@ import {
   Clock,
   AlertTriangle
 } from 'lucide-react';
-import { sampleUsers } from '@/data/sampleUsers';
-import { paperSetterData } from '@/data/paperSetterData';
+import { sampleUsers } from '../data/sampleUsers.js';
+import { paperSetterData } from '../data/paperSetterData.js';
 
 const SuperAdminDashboard = () => {
   // Calculate statistics

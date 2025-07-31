@@ -1,13 +1,8 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-  requiredRole?: string;
-}
-
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
+const ProtectedRoute = ({ 
   children, 
   requiredRole = 'superadmin' 
 }) => {

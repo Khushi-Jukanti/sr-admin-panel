@@ -3,15 +3,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import LoginForm from "@/components/auth/LoginForm";
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import SuperAdminDashboard from "@/pages/SuperAdminDashboard";
-import UserManagement from "@/pages/UserManagement";
-import TimetableEditor from "@/pages/TimetableEditor";
-import PaperSetterManager from "@/pages/PaperSetterManager";
-import NotFound from "./pages/NotFound";
+import { AuthProvider } from "@/contexts/AuthContext.jsx";
+import ProtectedRoute from "@/components/auth/ProtectedRoute.jsx";
+import LoginForm from "@/components/auth/LoginForm.jsx";
+import DashboardLayout from "@/components/dashboard/DashboardLayout.jsx";
+import SuperAdminDashboard from "@/pages/SuperAdminDashboard.jsx";
+import UserManagement from "@/pages/UserManagement.jsx";
+import TimetableEditor from "@/pages/TimetableEditor.jsx";
+import PaperSetterManager from "@/pages/PaperSetterManager.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 const queryClient = new QueryClient();
 

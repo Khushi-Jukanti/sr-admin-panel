@@ -8,9 +8,9 @@ import {
   LogOut,
   GraduationCap
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/AuthContext';
-import { cn } from '@/lib/utils';
+import { Button } from '../ui/button';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import { cn } from '../../lib/utils';
 
 const sidebarItems = [
   {

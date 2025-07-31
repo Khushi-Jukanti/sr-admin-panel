@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { useToast } from '@/hooks/use-toast';
+import { Navigate } from 'react-router-dom';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import { useToast } from '../../hooks/use-toast';
 import { GraduationCap } from 'lucide-react';
 
 const LoginForm = () => {
@@ -15,80 +15,71 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Redirect if already authenticated
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     
     if (!role || !username || !password) {
       toast({
-        title: "Missing Information",
+        title: "Error",
         description: "Please fill in all fields",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
     setIsLoading(true);
     
-    try {
+    // Simulate API call delay
+    setTimeout(() => {
       const success = login(role, username, password);
       
       if (success) {
         toast({
           title: "Login Successful",
-          description: `Welcome to SR Institutes Dashboard`,
+          description: "Welcome to SR Institutes Dashboard",
         });
-        
-        // Only superadmin can access the dashboard
-        if (role === 'superadmin') {
-          navigate('/dashboard');
-        } else {
-          toast({
-            title: "Access Restricted", 
-            description: "Only Super Admin can access this dashboard",
-            variant: "destructive"
-          });
-        }
       } else {
         toast({
           title: "Login Failed",
           description: "Invalid credentials. Please try again.",
-          variant: "destructive"
+          variant: "destructive",
         });
       }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An error occurred during login",
-        variant: "destructive"
-      });
-    } finally {
+      
       setIsLoading(false);
-    }
+    }, 1000);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-dashboard-bg p-4">
+    <div className="min-h-screen bg-dashboard-bg flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center">
               <GraduationCap className="w-8 h-8 text-white" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-primary">SR Institutes</CardTitle>
-          <CardDescription>Timetable Management System</CardDescription>
+          <CardTitle className="text-2xl">SR Institutes</CardTitle>
+          <CardDescription>
+            Timetable Management System
+          </CardDescription>
         </CardHeader>
+        
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="role">Select Role</Label>
+              <Label htmlFor="role">Role</Label>
               <Select value={role} onValueChange={setRole}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose your role" />
+                  <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="superadmin">Super Admin</SelectItem>
@@ -106,7 +97,8 @@ const LoginForm = () => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username"
+                placeholder="Enter your username"
+                disabled={isLoading}
               />
             </div>
             
@@ -117,7 +109,8 @@ const LoginForm = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password"
+                placeholder="Enter your password"
+                disabled={isLoading}
               />
             </div>
             
@@ -130,8 +123,8 @@ const LoginForm = () => {
             </Button>
           </form>
           
-          <div className="mt-6 text-sm text-muted-foreground">
-            <p className="font-semibold mb-2">Demo Credentials:</p>
+          <div className="mt-6 text-center text-sm text-muted-foreground">
+            <p className="font-medium mb-2">Demo Credentials:</p>
             <div className="space-y-1 text-xs">
               <p><strong>Super Admin:</strong> admin / admin123</p>
               <p><strong>Principal:</strong> principal / principal123</p>
