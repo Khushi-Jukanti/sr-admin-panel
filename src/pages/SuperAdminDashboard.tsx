@@ -81,17 +81,17 @@ const SuperAdminDashboard = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-foreground">Super Admin Dashboard</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">Super Admin Dashboard</h1>
+        <p className="text-muted-foreground text-sm md:text-base">
           Welcome to SR Institutes Timetable Management System
         </p>
       </div>
 
       {/* Main Statistics */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
@@ -119,7 +119,7 @@ const SuperAdminDashboard = () => {
       </div>
 
       {/* Paper Setter Status */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {paperStats.map((stat) => {
           const Icon = stat.icon;
           return (
@@ -144,7 +144,7 @@ const SuperAdminDashboard = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Recent User Activity</CardTitle>

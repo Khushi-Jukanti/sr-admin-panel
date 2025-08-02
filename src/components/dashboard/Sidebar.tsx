@@ -10,7 +10,12 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
+
+interface SidebarProps {
+  onClose?: () => void;
+}
 
 const sidebarItems = [
   {
@@ -35,16 +40,23 @@ const sidebarItems = [
   }
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ onClose }: SidebarProps) => {
   const location = useLocation();
   const { logout, user } = useAuth();
+  const isMobile = useIsMobile();
 
   const handleLogout = () => {
     logout();
   };
 
+  const handleNavClick = () => {
+    if (isMobile && onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="w-64 bg-white border-r border-border h-full flex flex-col">
+    <div className="w-64 bg-white border-r border-border h-full flex flex-col min-h-screen">
       {/* Logo and Title */}
       <div className="p-6 border-b border-border">
         <div className="flex items-center space-x-3">
@@ -68,6 +80,7 @@ const Sidebar = () => {
             <NavLink
               key={item.href}
               to={item.href}
+              onClick={handleNavClick}
               className={cn(
                 "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                 isActive 

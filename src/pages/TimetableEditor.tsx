@@ -268,11 +268,11 @@ const TimetableEditor = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Timetable Manager</h1>
-          <p className="text-muted-foreground">Create and manage class schedules</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Timetable Manager</h1>
+          <p className="text-muted-foreground text-sm md:text-base">Create and manage class schedules</p>
         </div>
         
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -301,15 +301,15 @@ const TimetableEditor = () => {
       </div>
 
       <Tabs value={selectedClass} onValueChange={setSelectedClass}>
-        <div className="flex justify-between items-center">
-          <TabsList className="grid w-fit grid-cols-4 gap-1">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <TabsList className="grid w-full sm:w-fit grid-cols-2 sm:grid-cols-4 gap-1">
             {classSections.slice(0, 4).map(cls => (
               <TabsTrigger key={cls} value={cls}>{cls}</TabsTrigger>
             ))}
           </TabsList>
           
           <Select value={selectedClass} onValueChange={setSelectedClass}>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-full sm:w-40">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -335,7 +335,7 @@ const TimetableEditor = () => {
               
               <CardContent>
                 <div className="overflow-x-auto">
-                  <Table>
+                  <Table className="min-w-[800px]">
                     <TableHeader>
                       <TableRow>
                         <TableHead className="min-w-24">Time</TableHead>

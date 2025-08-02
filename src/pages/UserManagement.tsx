@@ -227,11 +227,11 @@ const UserManagement = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">User Management</h1>
-          <p className="text-muted-foreground">Manage system users and their access</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">User Management</h1>
+          <p className="text-muted-foreground text-sm md:text-base">Manage system users and their access</p>
         </div>
         
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -267,7 +267,7 @@ const UserManagement = () => {
           </CardDescription>
           
           {/* Search and Filter Controls */}
-          <div className="flex gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
@@ -278,10 +278,10 @@ const UserManagement = () => {
               />
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 w-full sm:w-auto">
               <Filter className="h-4 w-4 text-muted-foreground" />
               <Select value={roleFilter} onValueChange={setRoleFilter}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="w-full sm:w-40">
                   <SelectValue placeholder="Filter by role" />
                 </SelectTrigger>
                 <SelectContent>
@@ -297,17 +297,18 @@ const UserManagement = () => {
         </CardHeader>
         
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>School/Campus</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="min-w-32">Name</TableHead>
+                  <TableHead className="min-w-20">Role</TableHead>
+                  <TableHead className="min-w-48">Email</TableHead>
+                  <TableHead className="min-w-32">School/Campus</TableHead>
+                  <TableHead className="min-w-20">Status</TableHead>
+                  <TableHead className="text-right min-w-24">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
             <TableBody>
               {filteredUsers.map((user) => (
                 <TableRow key={user.id}>
@@ -393,7 +394,8 @@ const UserManagement = () => {
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>
